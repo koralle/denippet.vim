@@ -8,5 +8,6 @@
     "fmt": "deno fmt **/*.ts",
     "check": "deno check **/*.ts && deno fmt --check **/*.ts && deno lint",
     "test": "deno test -A denops/**/*_test.ts"
-  }
+  },
+  "workspace": ["./denops/@ddc-sources", "./denops/denippet"]
 }
