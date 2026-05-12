@@ -8,8 +8,5 @@
     "fmt": "deno fmt **/*.ts",
     "check": "deno check **/*.ts && deno fmt --check **/*.ts && deno lint",
     "test": "deno test -A denops/**/*_test.ts"
-  },
-  "imports": {
-    "camelcase": "npm:camelcase@8.0.0"
   }
 }
