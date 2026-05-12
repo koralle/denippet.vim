@@ -1,11 +1,12 @@
-import { au, Denops, Entrypoint, fn, g, lambda } from "./deps/denops.ts";
-import { is, u } from "./deps/unknownutil.ts";
-import { lsputil } from "./deps/lsp.ts";
-import { Loader, NormalizedSnippet } from "./loader.ts";
-import { Session } from "./session.ts";
-import { register } from "./variable.ts";
-import { echoerr, normalizeNewline } from "./util.ts";
 import { UserData } from "../@ddc-sources/denippet.ts";
+import { au, Denops, Entrypoint, fn, g, lambda } from "./deps/denops.ts";
+import { lsputil } from "./deps/lsp.ts";
+import { is, u } from "./deps/unknownutil.ts";
+import { Loader } from "./loader/index.ts";
+import { NormalizedSnippet } from "./loader/schema.ts";
+import { Session } from "./session.ts";
+import { echoerr, normalizeNewline } from "./util.ts";
+import { register } from "./variable.ts";
 
 type CompleteItem = {
   word: string;
