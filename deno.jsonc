@@ -8,5 +8,8 @@
     "fmt": "deno fmt **/*.ts",
     "check": "deno check **/*.ts && deno fmt --check **/*.ts && deno lint",
     "test": "deno test -A denops/**/*_test.ts"
+  },
+  "imports": {
+    "es-toolkit": "jsr:@es-toolkit/es-toolkit@1.46.1"
   }
 }

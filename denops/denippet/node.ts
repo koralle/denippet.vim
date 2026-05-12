@@ -1,6 +1,6 @@
 import { Denops } from "./deps/denops.ts";
 import { LSP, lsputil } from "./deps/lsp.ts";
-import { camelcase } from "./deps/camelcase.ts";
+import { camelCase, capitalize, pascalCase } from "./deps/transform.ts";
 import { splitLines } from "./util.ts";
 import * as V from "./variable.ts";
 import { clearExtmark, getExtmarks, setExtmark } from "./extmark.ts";
@@ -403,11 +403,11 @@ export class Format extends Node {
     } else if (this.modifier === "downcase") {
       return str.toLowerCase();
     } else if (this.modifier === "capitalize") {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+      return capitalize(str);
     } else if (this.modifier === "camelcase") {
-      return camelcase(str);
+      return camelCase(str);
     } else if (this.modifier === "pascalcase") {
-      return camelcase(str, { pascalCase: true });
+      return pascalCase(str);
     }
 
     return str;
