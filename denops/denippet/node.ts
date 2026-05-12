@@ -73,16 +73,13 @@ export class Snippet extends Node {
     super();
   }
 
-  async getText(): Promise<string> {
+  override async getText(): Promise<string> {
     return await Promise.all(
       this.children.map(async (child) => await child.getText()),
     ).then((children) => children.join(""));
   }
 
-  async updateRange(
-    start?: LSP.Position,
-    tabstop?: number,
-  ): Promise<LSP.Position> {
+  override async updateRange(start?: LSP.Position, tabstop?: number): Promise<LSP.Position> {
     if (!start && !this.range) {
       throw new Error("Internal error: Node.Snippet.updateRange");
     }
@@ -139,10 +136,7 @@ export abstract class Jumpable extends Node {
     this.input = lines.join("\n");
   }
 
-  async updateRange(
-    start: LSP.Position,
-    tabstop?: number,
-  ): Promise<LSP.Position> {
+  override async updateRange(start: LSP.Position, tabstop?: number): Promise<LSP.Position> {
     const text = await this.getText(tabstop);
     const newRange = calcRange(start, text);
     if ((this.type === "choice" || this.copy != null) && this.range != null) {
@@ -212,7 +206,7 @@ export class Tabstop extends Jumpable {
     super();
   }
 
-  async getText(tabstop?: number): Promise<string> {
+  override async getText(tabstop?: number): Promise<string> {
     if (this.input != null) {
       return this.input;
     } else if (this.copy) {
@@ -242,7 +236,7 @@ export class Placeholder extends Jumpable {
     super();
   }
 
-  async getText(tabstop?: number): Promise<string> {
+  override async getText(tabstop?: number): Promise<string> {
     if (this.input != null) {
       return this.input;
     } else if (this.copy != null) {
@@ -258,10 +252,7 @@ export class Placeholder extends Jumpable {
     return this.children.length > 0 ? 1 : 0;
   }
 
-  async updateRange(
-    start: LSP.Position,
-    tabstop?: number,
-  ): Promise<LSP.Position> {
+  override async updateRange(start: LSP.Position, tabstop?: number): Promise<LSP.Position> {
     if (this.input != null || this.copy != null) {
       const text = await this.getText(tabstop);
       this.range = calcRange(start, text);
@@ -288,7 +279,7 @@ export class Choice extends Jumpable {
     super();
   }
 
-  getText(): string {
+  override getText(): string {
     return this.items[this.index] ?? "";
   }
 
@@ -323,7 +314,7 @@ export class Variable extends Node {
   }
 
   evaled = false;
-  async getText(tabstop?: number): Promise<string> {
+  override async getText(tabstop?: number): Promise<string> {
     if (!this.evaled) {
       this.evaled = true;
       const text = await Promise.all(
@@ -343,12 +334,7 @@ export class Transform extends Node {
   pattern: RegExp;
   formats: (Format | Text)[];
 
-  constructor(
-    public denops: Denops,
-    pattern: string,
-    formats: (Format | Text)[],
-    option?: string,
-  ) {
+  constructor(public denops: Denops, pattern: string, formats: (Format | Text)[], option?: string) {
     super();
     this.pattern = new RegExp(pattern, option);
     this.formats = formats;
@@ -417,14 +403,11 @@ export class Format extends Node {
 export class Text extends Node {
   type: "text" = "text";
 
-  constructor(
-    public denops: Denops,
-    public text: string,
-  ) {
+  constructor(public denops: Denops, public text: string) {
     super();
   }
 
-  getText(): string {
+  override getText(): string {
     return this.text;
   }
 }

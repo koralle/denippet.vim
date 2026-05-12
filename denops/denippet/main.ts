@@ -22,10 +22,7 @@ type SearchResult = {
   body?: undefined;
 };
 
-async function searchSnippet(
-  loader: Loader,
-  id?: string,
-): Promise<SearchResult> {
+async function searchSnippet(loader: Loader, id?: string): Promise<SearchResult> {
   const ctx = await lsputil.LineContext.create(loader.denops);
   const lineBeforeCursor = ctx.text.slice(0, ctx.character);
 

@@ -4,9 +4,7 @@
 import { Denops, fn, op } from "./deps/denops.ts";
 import { normalizeNewline, splitLines } from "./util.ts";
 
-async function getOneIndent(
-  denops: Denops,
-): Promise<string> {
+async function getOneIndent(denops: Denops): Promise<string> {
   if (await op.expandtab.get(denops)) {
     let width = await op.shiftwidth.get(denops);
     if (width === 0) {
@@ -18,17 +16,12 @@ async function getOneIndent(
   }
 }
 
-async function getBaseIndent(
-  denops: Denops,
-): Promise<string> {
+async function getBaseIndent(denops: Denops): Promise<string> {
   const line = await fn.getline(denops, ".");
   return line.match(/^\s*/)?.[0] ?? "";
 }
 
-export async function adjustIndent(
-  denops: Denops,
-  text: string,
-): Promise<string> {
+export async function adjustIndent(denops: Denops, text: string): Promise<string> {
   text = normalizeNewline(text);
 
   const oneIndent = await getOneIndent(denops);
@@ -47,9 +40,7 @@ export async function adjustIndent(
   return text;
 }
 
-export function trimBaseIndent(
-  text: string,
-): string {
+export function trimBaseIndent(text: string): string {
   text = normalizeNewline(text);
   const isCharWise = !text.endsWith("\n");
   text = text.replace(/\n$/, "");

@@ -3,10 +3,7 @@ import { LSP, lsputil } from "./deps/lsp.ts";
 import { is } from "./deps/unknownutil.ts";
 import { getExtmarks, setExtmark } from "./extmark.ts";
 
-export async function echoerr(
-  denops: Denops,
-  msg: string | Error,
-): Promise<void> {
+export async function echoerr(denops: Denops, msg: string | Error): Promise<void> {
   await batch(denops, async (denops) => {
     await denops.cmd("echohl Error");
     await denops.cmd("echom l:msg", { msg: `${msg}` });
@@ -14,10 +11,7 @@ export async function echoerr(
   });
 }
 
-export async function asyncFilter<T>(
-  array: T[],
-  callback: (x: T) => Promise<boolean>,
-): Promise<T[]> {
+export async function asyncFilter<T>(array: T[], callback: (x: T) => Promise<boolean>): Promise<T[]> {
   const bits = await Promise.all(array.map(callback));
   return array.filter((_, i) => bits[i]);
 }
@@ -52,12 +46,7 @@ function byteLength(str: string): number {
  * 5.         ---------------           -----------
  * 6.                     ---                   ---
  */
-export async function linePatch(
-  denops: Denops,
-  before: number,
-  after: number,
-  insertText: string,
-): Promise<void> {
+export async function linePatch(denops: Denops, before: number, after: number, insertText: string): Promise<void> {
   const cursor16 = await lsputil.getCursor(denops);
   const cursor = await lsputil.toUtf8Position(denops, 0, cursor16, "utf-16");
   const lines = splitLines(insertText);

@@ -83,9 +83,7 @@ function toString(x?: string | string[]): string {
 export class Loader {
   snippets: NormalizedSnippet[] = [];
 
-  constructor(
-    public denops: Denops,
-  ) {}
+  constructor(public denops: Denops) {}
 
   reset(): void {
     this.snippets = [];
@@ -129,10 +127,7 @@ export class Loader {
     });
   }
 
-  async load(
-    filepath: string,
-    filetype: string | string[],
-  ): Promise<void> {
+  async load(filepath: string, filetype: string | string[]): Promise<void> {
     const extension = filepath.split(".").pop()!;
     if (extension === "ts") {
       const content = await import(path.toFileUrl(filepath).toString())

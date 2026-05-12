@@ -5,10 +5,7 @@ import { adjustIndent } from "./indent.ts";
 
 type ElementOf<T> = T extends (infer U)[] ? U : never;
 
-export async function parse(
-  denops: Denops,
-  body: string,
-): Promise<Node.Snippet> {
+export async function parse(denops: Denops, body: string): Promise<Node.Snippet> {
   body = await adjustIndent(denops, body);
   const result = lsputil.Parser(body, 0);
   if (!result.parsed) {
