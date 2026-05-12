@@ -19,11 +19,7 @@ async function ensurePropType(denops: Denops): Promise<string> {
   return NAMESPACE;
 }
 
-export async function setExtmark(
-  denops: Denops,
-  range: LSP.Range, // utf8 offset, 0-index
-  extmarkId?: number,
-): Promise<void> {
+export async function setExtmark(denops: Denops, range: LSP.Range, extmarkId?: number): Promise<void> {
   if (denops.meta.host === "nvim") {
     const opts: Record<string, unknown> = {
       end_row: range.end.line,
@@ -71,10 +67,7 @@ type Prop = {
   end: boolean;
 };
 
-export async function getExtmarks(
-  denops: Denops,
-  lnum?: number,
-): Promise<Extmark[]> {
+export async function getExtmarks(denops: Denops, lnum?: number): Promise<Extmark[]> {
   if (denops.meta.host === "nvim") {
     const range = lnum == null ? [0, -1] : [[lnum, 0], [lnum, -1]];
     const nsId = await ensureNsId(denops);
@@ -129,9 +122,7 @@ export async function getExtmarks(
   }
 }
 
-export async function clearExtmark(
-  denops: Denops,
-): Promise<void> {
+export async function clearExtmark(denops: Denops): Promise<void> {
   if (denops.meta.host === "nvim") {
     await api.nvim_buf_clear_namespace(denops, 0, await ensureNsId(denops), 0, -1);
   } else {

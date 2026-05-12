@@ -4,25 +4,15 @@ import { Denops, fn, op } from "./deps/denops.ts";
 import { is } from "./deps/unknownutil.ts";
 import { trimBaseIndent } from "./indent.ts";
 
-export type VariableFunc = (
-  denops: Denops,
-  text: string,
-) => string | undefined | Promise<string | undefined>;
+export type VariableFunc = (denops: Denops, text: string) => string | undefined | Promise<string | undefined>;
 
 const Cell: Record<string, VariableFunc> = {};
 
-export function register(
-  name: string,
-  cb: VariableFunc,
-): void {
+export function register(name: string, cb: VariableFunc): void {
   Cell[name] = cb;
 }
 
-export async function call(
-  denops: Denops,
-  name: string,
-  text: string,
-): Promise<string> {
+export async function call(denops: Denops, name: string, text: string): Promise<string> {
   try {
     const evaled = await Cell[name]?.(denops, text);
     return evaled ? evaled : text;

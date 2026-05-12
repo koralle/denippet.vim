@@ -40,10 +40,7 @@ export class Source extends BaseSource<Params> {
     ) as Item<UserData>[];
   }
 
-  async onCompleteDone({
-    denops,
-    userData,
-  }: OnCompleteDoneArguments<Params, UserData>): Promise<void> {
+  override async onCompleteDone({ denops, userData }: OnCompleteDoneArguments<Params, UserData>): Promise<void> {
     // Not expanded if confirmed with additional input.
     const completed_event = await denops.eval("g:pum#completed_event")
       .catch(() => "undefined") as CompletedEvent;
@@ -63,10 +60,7 @@ export class Source extends BaseSource<Params> {
     await denops.call("ddc#skip_next_complete");
   }
 
-  async getPreviewer({
-    denops,
-    item,
-  }: GetPreviewerArguments<Params, UserData>): Promise<Previewer> {
+  override async getPreviewer({ denops, item }: GetPreviewerArguments<Params, UserData>): Promise<Previewer> {
     const userData = item.user_data;
     if (userData == null) {
       return { kind: "empty" };
@@ -85,10 +79,7 @@ export class Source extends BaseSource<Params> {
     return { kind: "markdown", contents };
   }
 
-  async snippetToString(
-    denops: Denops,
-    body: string,
-  ): Promise<string> {
+  async snippetToString(denops: Denops, body: string): Promise<string> {
     return await denops.dispatch(
       "denippet",
       "snippetToString",
