@@ -1,4 +1,5 @@
-export * as TOML from "jsr:@std/toml@0.224.1";
-export * as YAML from "jsr:@std/yaml@0.224.3";
-export * as path from "jsr:@std/path@0.225.2";
-export { assert, assertEquals } from "jsr:@std/assert@0.226.0";
+export * as TOML from "jsr:@std/toml@1.0.11";
+export * as YAML from "jsr:@std/yaml@1.1.0";
+export * as path from "jsr:@std/path@1.1.4";
+
+export { assert, assertEquals } from "jsr:@std/assert@1.0.19";
