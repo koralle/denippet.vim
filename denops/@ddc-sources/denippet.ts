@@ -3,8 +3,8 @@ import {
   GatherArguments,
   GetPreviewerArguments,
   OnCompleteDoneArguments,
-} from "jsr:@shougo/ddc-vim@10.3.0/source";
-import { DdcGatherItems, Item, Previewer } from "jsr:@shougo/ddc-vim@10.3.0/types";
+} from "@shougo/ddc-vim/source";
+import { DdcGatherItems, Item, Previewer } from "@shougo/ddc-vim/types";
 import { Denops, op } from "../denippet/deps/denops.ts";
 import { lsputil } from "../denippet/deps/lsp.ts";
 import { splitLines } from "../denippet/util.ts";
