@@ -1,4 +1,4 @@
-export type { Denops, Entrypoint } from "jsr:@denops/std@8.2.0";
+export type { Denops, Entrypoint } from "@denops/std";
 
 export * as fn from "jsr:@denops/std@8.2.0/function";
 export * as api from "jsr:@denops/std@8.2.0/function/nvim";

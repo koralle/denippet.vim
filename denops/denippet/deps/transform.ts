@@ -1,1 +1,1 @@
-export { camelCase, capitalize, pascalCase } from "jsr:@es-toolkit/es-toolkit@1.46.1";
+export { camelCase, capitalize, pascalCase } from "@es-toolkit/es-toolkit";
